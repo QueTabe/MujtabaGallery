@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Galeri Foto Kelas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #b8860b;
+      --secondary: #8b6b4a;
+      --bg-light: #fcf8f3;
+      --text-dark: #3e3e3e;
+    }
+
+    body {
+      font-family: 'Amiri', serif;
+      margin: 0;
+      padding: 0;
+      color: var(--text-dark);
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Overlay background gradasi semi transparan di bawah semua konten */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary)), 
+                  url(BG\ HEADER.png);
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: overlay;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(49, 49, 49, 0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 2.8rem;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      color: #2f2f2f;
+      text-shadow: 4 4px 10px #000000; 
+      border-color: #fcf8f3;
+      border-radius: 2px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #ffffff;
+      text-shadow: 0 3px 10px #000000; 
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px 5%;
+    }
+
+    .photo-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .photo-card:hover {
+      transform: scale(1.03);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .caption {
+      padding: 12px;
+      font-size: 1rem;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: white;
+      font-size: 0.95rem;
+      font-family: 'Amiri', serif;
+      box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: auto;
+    }
+
+    .modal-caption {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: var(--text-dark);
+    }
+
+    .close {
+      color: #aaa;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+    }
+
+    .nav-button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .nav-button:hover {
+      background: var(--secondary);
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+
+  <header>
+    <h1>Galeri Mujtaba</h1>
+    <p>للفصل الثاني العاليةالمسمى بالمجتبى </p>
+  </header>
+
+  <div class="gallery" id="gallery">
+    <div class="photo-card" onclick="openModal(0)">
+      <img src="images/foto1.jpg" alt="Foto 1" />
+      <div class="caption">Nama Siswa 1</div>
+    </div>
+    <div class="photo-card" onclick="openModal(1)">
+      <img src="images/foto2.jpg" alt="Foto 2" />
+      <div class="caption">Nama Siswa 2</div>
+    </div>
+    <div class="photo-card" onclick="openModal(2)">
+      <img src="images/foto3.jpg" alt="Foto 3" />
+      <div class="caption">Nama Siswa 3</div>
+    </div>
+    <div class="photo-card" onclick="openModal(3)">
+      <img src="images/foto4.jpg" alt="Foto 4" />
+      <div class="caption">Nama Siswa 4</div>
+    </div>
+    <div class="photo-card" onclick="openModal(4)">
+      <img src="images/foto5.jpg" alt="Foto 5" />
+      <div class="caption">Nama Siswa 5</div>
+    </div>
+    <div class="photo-card" onclick="openModal(5)">
+      <img src="images/foto6.jpg" alt="Foto 6" />
+      <div class="caption">Nama Siswa 6</div>
+    </div>
+    <div class="photo-card" onclick="openModal(0)">
+      <img src="images/foto1.jpg" alt="Foto 1" />
+      <div class="caption">Nama Siswa 1</div>
+    </div>
+    <div class="photo-card" onclick="openModal(1)">
+      <img src="images/foto2.jpg" alt="Foto 2" />
+      <div class="caption">Nama Siswa 2</div>
+    </div>
+    <div class="photo-card" onclick="openModal(2)">
+      <img src="images/foto3.jpg" alt="Foto 3" />
+      <div class="caption">Nama Siswa 3</div>
+    </div>
+    <div class="photo-card" onclick="openModal(3)">
+      <img src="images/foto4.jpg" alt="Foto 4" />
+      <div class="caption">Nama Siswa 4</div>
+    </div>
+    <div class="photo-card" onclick="openModal(4)">
+      <img src="images/foto5.jpg" alt="Foto 5" />
+      <div class="caption">Nama Siswa 5</div>
+    </div>
+    <div class="photo-card" onclick="openModal(5)">
+      <img src="images/foto6.jpg" alt="Foto 6" />
+      <div class="caption">Nama Siswa 6</div>
+    </div><div class="photo-card" onclick="openModal(0)">
+      <img src="images/foto1.jpg" alt="Foto 1" />
+      <div class="caption">Nama Siswa 1</div>
+    </div>
+    <div class="photo-card" onclick="openModal(1)">
+      <img src="images/foto2.jpg" alt="Foto 2" />
+      <div class="caption">Nama Siswa 2</div>
+    </div>
+    <div class="photo-card" onclick="openModal(2)">
+      <img src="images/foto3.jpg" alt="Foto 3" />
+      <div class="caption">Nama Siswa 3</div>
+    </div>
+    <div class="photo-card" onclick="openModal(3)">
+      <img src="images/foto4.jpg" alt="Foto 4" />
+      <div class="caption">Nama Siswa 4</div>
+    </div>
+    <div class="photo-card" onclick="openModal(4)">
+      <img src="images/foto5.jpg" alt="Foto 5" />
+      <div class="caption">Nama Siswa 5</div>
+    </div>
+    <div class="photo-card" onclick="openModal(5)">
+      <img src="images/foto6.jpg" alt="Foto 6" />
+      <div class="caption">Nama Siswa 6</div>
+    </div><div class="photo-card" onclick="openModal(0)">
+      <img src="images/foto1.jpg" alt="Foto 1" />
+      <div class="caption">Nama Siswa 1</div>
+    </div>
+    <div class="photo-card" onclick="openModal(1)">
+      <img src="images/foto2.jpg" alt="Foto 2" />
+      <div class="caption">Nama Siswa 2</div>
+    </div>
+    <div class="photo-card" onclick="openModal(2)">
+      <img src="images/foto3.jpg" alt="Foto 3" />
+      <div class="caption">Nama Siswa 3</div>
+    </div>
+    <div class="photo-card" onclick="openModal(3)">
+      <img src="images/foto4.jpg" alt="Foto 4" />
+      <div class="caption">Nama Siswa 4</div>
+    </div>
+    <div class="photo-card" onclick="openModal(4)">
+      <img src="images/foto5.jpg" alt="Foto 5" />
+      <div class="caption">Nama Siswa 5</div>
+    </div>
+    <div class="photo-card" onclick="openModal(5)">
+      <img src="images/foto6.jpg" alt="Foto 6" />
+      <div class="caption">Nama Siswa 6</div>
+    </div>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img id="modalImg" src="" alt="" />
+      <div class="modal-caption" id="modalCaption"></div>
+      <button class="nav-button" onclick="prevPhoto()">&laquo; Sebelumnya</button>
+      <button class="nav-button" onclick="nextPhoto()">Berikutnya &raquo;</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 - Akun Resmi El Mujtaba</p>
+  </footer>
+
+  <script>
+    const photos = [
+      { src: 'images/foto1.jpg', caption: 'Nama Siswa 1' },
+      { src: 'images/foto2.jpg', caption: 'Nama Siswa 2' },
+      { src: 'images/foto3.jpg', caption: 'Nama Siswa 3' },
+      { src: 'images/foto4.jpg', caption: 'Nama Siswa 4' },
+      { src: 'images/foto5.jpg', caption: 'Nama Siswa 5' },
+      { src: 'images/foto6.jpg', caption: 'Nama Siswa 6' }
+    ];
+
+    let currentIndex = 0;
+
+    function openModal(index) {
+      currentIndex = index;
+      document.getElementById("myModal").style.display = "block";
+      updateModal();
+    }
+
+    function closeModal() {
+      document.getElementById("myModal").style.display = "none";
+    }
+
+    function updateModal() {
+      const modalImg = document.getElementById("modalImg");
+      const modalCaption = document.getElementById("modalCaption");
+      modalImg.src = photos[currentIndex].src;
+      modalCaption.innerText = photos[currentIndex].caption;
+    }
+
+    function nextPhoto() {
+      currentIndex = (currentIndex + 1) % photos.length;
+      updateModal();
+    }
+
+    function prevPhoto() {
+      currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+      updateModal();
+    }
+
+    window.onclick = function(event) {
+      if (event.target === document.getElementById("myModal")) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

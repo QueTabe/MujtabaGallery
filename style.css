@@ -1,0 +1,14 @@
+header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary)), 
+              url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  /* agar gradasi overlay gambar tetap terlihat */
+  background-blend-mode: overlay;
+}
